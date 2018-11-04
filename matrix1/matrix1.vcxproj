@@ -115,6 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="lowerTriangularMatrix.h" />
+    <ClInclude Include="myExceptions.h" />
+    <ClInclude Include="upperTriangularMatrix.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lowerTriangularMatrix.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
