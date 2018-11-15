@@ -20,10 +20,10 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{FCAB6458-EC07-4071-B474-A0FF19426043}</ProjectGuid>
-    <RootNamespace>homework4</RootNamespace>
+    <ProjectGuid>{20658400-13BD-43C4-AAC3-9409F8373054}</ProjectGuid>
+    <RootNamespace>hashChainsWithTails</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-    <ProjectName>Josephus</ProjectName>
+    <ProjectName>hashChainsWithTail</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -116,7 +116,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="dictionary.h" />
+    <ClInclude Include="hash.h" />
+    <ClInclude Include="hashChains.h" />
+    <ClInclude Include="pairNode.h" />
+    <ClInclude Include="sortedChain.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="hashChains.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

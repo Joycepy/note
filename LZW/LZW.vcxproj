@@ -20,10 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{FCAB6458-EC07-4071-B474-A0FF19426043}</ProjectGuid>
-    <RootNamespace>homework4</RootNamespace>
+    <ProjectGuid>{C1E65228-729C-4775-85B5-4A4146DBD4D6}</ProjectGuid>
+    <RootNamespace>LZW</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-    <ProjectName>Josephus</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -116,7 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="LZW.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dictionary.h" />
+    <ClInclude Include="hash.h" />
+    <ClInclude Include="hashChains.h" />
+    <ClInclude Include="pairNode.h" />
+    <ClInclude Include="sortedChain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
