@@ -1,0 +1,145 @@
+#pragma once
+#include<iostream>
+#include<list>
+#include <algorithm>
+#include<string>
+using namespace std;
+int T = 0;
+class binaryTree
+{
+public:
+	binaryTree* right;
+	binaryTree* left;
+	int weight;//权重
+	char key;//字母
+	binaryTree(int theWeight=0,char theKey=0,binaryTree* theLeft=NULL, binaryTree* theRight = NULL)
+	{ weight = theWeight; right = theRight; left = theLeft; key = theKey; }
+	void makeTree(binaryTree, binaryTree);
+};
+void binaryTree::makeTree(binaryTree theLeft, binaryTree theRight)
+{
+	binaryTree* ltree = new binaryTree(theLeft.weight, theLeft.key, theLeft.right, theLeft.left);
+	binaryTree* rtree = new binaryTree(theRight.weight, theRight.key, theRight.right, theRight.left);
+	left = ltree;
+	right = rtree;
+}
+struct hpair
+{//权重-字母-编码
+	int weight;
+	char key;
+	string huffString = "";
+};
+hpair* p = NULL;//申明自定义的类的对象时，要写在类定义之后！！
+bool compare(binaryTree* a,binaryTree* b)
+{
+	return a->weight<b->weight; //升序排列
+}
+
+binaryTree* myTree = NULL;
+void huffmanTree(hpair* code, int n)
+{
+	list<binaryTree*> tlist;
+	binaryTree *hNode = new binaryTree[n];
+	//创建n个叶节点
+	for (int i = 0; i < n; i++)
+	{
+		hNode[i] = binaryTree(code[i].weight, code[i].key, NULL, NULL);
+		hNode[i].key = code[i].key;
+		tlist.push_back(&hNode[i]);
+	}
+	//每次取权最小的两个节点，构成新的节点
+	while (tlist.size()>1)
+	{
+		tlist.sort(compare);
+		binaryTree *theR,*theL;
+		theR = tlist.front();
+		tlist.pop_front();
+		theL = tlist.front();
+		tlist.pop_front();
+		binaryTree* tree =new binaryTree(theR->weight + theL->weight, ' ', theL, theR);
+		tlist.push_back(tree);
+	}
+	binaryTree* tmp = tlist.front();
+	myTree = new binaryTree(tmp->weight, tmp->key, tmp->left, tmp->right);
+}
+void huffCode(binaryTree* tree, string s)
+{
+	if ((tree->left) == NULL || (tree->right) == NULL)
+	{//递归得到叶节点
+		cout << tree->key << "-----" << s << endl;
+		for (int i = 0; i < T; i++)
+		{
+			if (p[i].key == tree->key)
+				p[i].huffString = s;
+		}
+	}
+	else
+	{//向左附加0，向右附加1，递归
+		huffCode(tree->left, s + "0");
+		huffCode(tree->right, s + "1");
+	}
+}
+hpair* createPair(string s)
+{//根据传入的字符串确定出现的符号和频率
+	int num[26];
+	for (int i = 0; i < 26; i++)
+		num[i] = 0;
+	int len = s.length();
+	for (int i = 0;i < len; i++)	
+		num[s[i] - 'a']++;//出现次数
+	int total = 0;//字母种数
+	for(int i=0;i<26;i++)
+		if (num[i])
+		{
+			total++;
+		}
+	T = total;
+	int j = 0;
+	p = new hpair[total];
+	for (int i = 0; i < 26; i++)
+	{
+		if (num[i])
+		{
+			p[j].key = 'a' + i;
+			p[j++].weight = num[i];
+		}
+	}
+	return p;
+}
+string encode(string a)
+{//用已有的哈夫曼树得出的字母编码，将字符串转为01串
+	string ret = "";
+	int len = a.length();
+	for (int i = 0; i < len; i++)
+	{
+		for (int j = 0; j < T; j++)
+		{
+			if (p[j].key == a[i])
+				ret += p[j].huffString;
+		}
+	}
+	return ret;
+}
+
+string trans(string num)
+{//将01串转为原文
+	string tr = "";
+	char temp;
+	binaryTree* tt;
+	int len = num.length();
+	for (int i = 0; i < len; )
+	{
+		tt = myTree;
+		while (tt->left != NULL)
+		{//读到0向左读到1向右
+			temp = num[i++];
+			if (temp == '0')
+				tt = tt->left;
+			else
+				tt = tt->right;
+		}
+		//到达叶节点，附加字母
+		tr += tt->key;
+	}
+	return tr;
+}
